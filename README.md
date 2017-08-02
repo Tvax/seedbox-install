@@ -1,8 +1,7 @@
 # SEEDBOX INSTALL SCRIPT
 Easily install [Plex](https://github.com/plexinc/plex-media-player), [Sonarr](https://github.com/Sonarr/Sonarr), [Radarr](https://github.com/Radarr/Radarr) and [Deluge](https://github.com/deluge-torrent/deluge) with one script!  
 
-## Install
-`sudo apt-get install unzip;`  
+## Install  
 `wget https://raw.githubusercontent.com/Tvax/seedbox-install/master/vpsInitscript.sh;`  
 `chmod 755 vpsInitscript.sh`  
 `./vpsInitscript.sh;`  
