@@ -3,9 +3,9 @@ Easily install [Plex](https://github.com/plexinc/plex-media-player), [Sonarr](ht
 
 ## Install
 `sudo apt-get install unzip;`  
-`wget https://github.com/Tvax/sonarr-radarr-deluge-plex_install_script/archive/master.zip;`  
-`unzip sonarr-radarr-deluge-plex_install_script-master.zip;`  
-`./sonarr-radarr-deluge-plex_install_script-master/vpsInitscript.sh;`  
+`wget https://github.com/Tvax/seedbox-install/archive/master.zip;`  
+`unzip seedbox-install-master.zip;`  
+`./seedbox-install-master/vpsInitscript.sh;`  
 
 ## Plex
 To install Plex via SSH :  
