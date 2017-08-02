@@ -1,7 +1,6 @@
 #!/bin/sh
 
 ##Check if distribution is supported
-
 if [[ -z "$(uname -a | grep Ubuntu)" && -z "$(uname -a | grep Debian)" ]];
 then
         echo Distro not supported
