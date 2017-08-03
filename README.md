@@ -31,4 +31,8 @@ Connect to Sonarr :
 Connect to Sonarr :  
 `IP:7878`  
 For more help :  
-1. https://www.htpcguides.com/install-radarr-on-debian-8-jessie/`  
+1. https://www.htpcguides.com/install-radarr-on-debian-8-jessie/  
+
+## Jackett
+Connect to Jackett :  
+`IP:9117`  
