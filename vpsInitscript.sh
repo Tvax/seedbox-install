@@ -94,7 +94,6 @@ cd /tmp;
 wget https://github.com/Radarr/Radarr/releases/download/v0.2.0.45/Radarr.develop.0.2.0.45.linux.tar.gz;
 sudo tar -xf Radarr* -C /opt/;
 sudo chown -R root:root /opt/Radarr;
-cd /opt/Radarr;
 
 echo "[Unit]
 Description=Radarr Daemon
@@ -114,3 +113,28 @@ WantedBy=multi-user.target
 " > /etc/systemd/system/radarr.service;
 sudo systemctl enable radarr;
 sudo service radarr start;
+
+##Jackett
+apt-get install libcurl4-openssl-dev
+wget https://github.com/Jackett/Jackett/releases/download/v0.7.1622/Jackett.Binaries.Mono.tar.gz
+sudo tar -xf Jackett* -C /opt/;
+sudo chown -R root:root /opt/Jackett;
+
+echo "[Unit]
+Description=Jackett Daemon
+After=network.target
+
+[Service]
+WorkingDirectory=/opt/Jackett/
+User=root
+ExecStart=/usr/bin/mono --debug JackettConsole.exe --NoRestart
+Restart=always
+RestartSec=2
+Type=simple
+TimeoutStopSec=5
+
+[Install]
+WantedBy=multi-user.target
+" > /etc/systemd/system/jackett.service;
+sudo systemctl enable jackett;
+sudo service jackett start;
