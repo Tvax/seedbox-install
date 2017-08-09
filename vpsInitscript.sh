@@ -8,17 +8,17 @@ then
 fi
 
 ##Updates && Upgrades
-apt-get update;
-apt-get upgrade;
-apt-get install curl;
+sudo apt-get update;
+sudo apt-get upgrade;
+sudo apt-get install curl;
 
 ##Deluge
-apt-get install deluge;
-apt-get install deluge-web;
-apt-get install deluged;
-apt-get install deluge-console;
+sudo apt-get install deluge;
+sudo apt-get install deluge-web;
+sudo apt-get install deluged;
+sudo apt-get install deluge-console;
 
-echo "[Unit]
+sudo echo "[Unit]
 Description=Deluge Bittorrent Client Web Interface
 Documentation=man:deluge-web
 After=network-online.target deluged.service
@@ -36,7 +36,7 @@ WantedBy=multi-user.target
 sudo systemctl enable /etc/systemd/system/deluge-web.service;
 sudo systemctl start deluge-web;
 
-echo "[Unit]
+sudo echo "[Unit]
 Description=Deluge Bittorrent Client Daemon
 Documentation=man:deluged
 After=network-online.target
@@ -57,8 +57,8 @@ sudo systemctl start deluged;
 
 ##PlexMediaServer
 cd;
-bash -c "$(wget -qO - https://raw.githubusercontent.com/mrworf/plexupdate/master/extras/installer.sh)";
-service plexservermedia start;
+sudo bash -c "$(wget -qO - https://raw.githubusercontent.com/mrworf/plexupdate/master/extras/installer.sh)";
+sudo service plexservermedia start;
 
 ##Sonarr
 sudo apt-get install libmono-cil-dev;
@@ -67,7 +67,7 @@ sudo echo "deb http://apt.sonarr.tv/ master main" | sudo tee /etc/apt/sources.li
 sudo apt-get update;
 sudo apt-get install nzbdrone;
 
-echo "[Unit]
+sudo echo "[Unit]
 Description=Sonarr Daemon
 
 [Service]
@@ -88,14 +88,14 @@ systemctl enable sonarr.service;
 sudo service sonarr start;
 
 ##Radarr
-apt update && apt install libmono-cil-dev curl mediainfo;
+sudo apt update && apt install libmono-cil-dev curl mediainfo;
 sudo apt-get install mono-devel mediainfo sqlite3 libmono-cil-dev -y;
 cd /tmp;
 wget https://github.com/Radarr/Radarr/releases/download/v0.2.0.45/Radarr.develop.0.2.0.45.linux.tar.gz;
 sudo tar -xf Radarr* -C /opt/;
 sudo chown -R root:root /opt/Radarr;
 
-echo "[Unit]
+sudo echo "[Unit]
 Description=Radarr Daemon
 After=syslog.target network.target
 
@@ -115,12 +115,12 @@ sudo systemctl enable radarr;
 sudo service radarr start;
 
 ##Jackett
-apt-get install libcurl4-openssl-dev
-wget https://github.com/Jackett/Jackett/releases/download/v0.7.1622/Jackett.Binaries.Mono.tar.gz
+sudo apt-get install libcurl4-openssl-dev;
+wget https://github.com/Jackett/Jackett/releases/download/v0.7.1622/Jackett.Binaries.Mono.tar.gz;
 sudo tar -xf Jackett* -C /opt/;
 sudo chown -R root:root /opt/Jackett;
 
-echo "[Unit]
+sudo echo "[Unit]
 Description=Jackett Daemon
 After=network.target
 
@@ -138,3 +138,14 @@ WantedBy=multi-user.target
 " > /etc/systemd/system/jackett.service;
 sudo systemctl enable jackett;
 sudo service jackett start;
+
+##Headphones
+sudo apt-get install git-core python;
+cd /opt;
+git clone https://github.com/rembo10/headphones.git;
+sudo touch /etc/default/headphones;
+sudo chmod +x /opt/headphones/init-scripts/init.ubuntu;
+sudo ln -s /opt/headphones/init-scripts/init.ubuntu /etc/init.d/headphones;
+sudo update-rc.d headphones defaults;
+sudo update-rc.d headphones enable;
+sudo service headphones start;

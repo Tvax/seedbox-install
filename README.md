@@ -21,17 +21,27 @@ Default password :
 `deluge`  
 For more help :  
 1. https://docs.google.com/document/d/1cARrPUryp-X37QZy29hCMA3zVddDCg4NmBCIZEflel8/edit
-2. http://dev.deluge-torrent.org/wiki/UserGuide/ThinClient#WebUI
+2. http://dev.deluge-torrent.org/wiki/UserGuide/ThinClient#WebUI  
 
-## Sonarr
-Connect to Sonarr :  
-`IP:8989`  
+## Headphones
+Connect to Headphones :  
+`localhost:8181`  
+You may want to change your IP address in the `config.ini` file to connect to the web UI.  
+If you have an error with timezone :  
+`sudo dpkg-reconfigure tzdata`  
+For more help :  
+1. https://github.com/rembo10/headphones/wiki/Installation
+2. https://github.com/rembo10/headphones/wiki/Install-as-a-daemon  
 
 ## Radarr
 Connect to Sonarr :  
 `IP:7878`  
 For more help :  
 1. https://www.htpcguides.com/install-radarr-on-debian-8-jessie/  
+
+## Sonarr
+Connect to Sonarr :  
+`IP:8989`  
 
 ## Jackett
 Connect to Jackett :  
