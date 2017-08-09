@@ -1,5 +1,5 @@
 # SEEDBOX INSTALL SCRIPT
-Easily install [Plex](https://github.com/plexinc/plex-media-player), [Sonarr](https://github.com/Sonarr/Sonarr), [Radarr](https://github.com/Radarr/Radarr), [Deluge](https://github.com/deluge-torrent/deluge) and [Jackett](https://github.com/Jackett/Jackett) with one script!  
+Easily install [Plex](https://github.com/plexinc/plex-media-player), [Sonarr](https://github.com/Sonarr/Sonarr), [Radarr](https://github.com/Radarr/Radarr), [Headphones](https://github.com/rembo10/headphones), [Deluge](https://github.com/deluge-torrent/deluge) and [Jackett](https://github.com/Jackett/Jackett) with one script!  
 
 ## Install  
 `wget https://raw.githubusercontent.com/Tvax/seedbox-install/master/vpsInitscript.sh;`  
@@ -19,7 +19,7 @@ Connect to Deluge :
 `IP:8112`  
 Default password :  
 `deluge`  
-For more help :  
+For more help :
 1. https://docs.google.com/document/d/1cARrPUryp-X37QZy29hCMA3zVddDCg4NmBCIZEflel8/edit
 2. http://dev.deluge-torrent.org/wiki/UserGuide/ThinClient#WebUI  
 
@@ -29,14 +29,14 @@ Connect to Headphones :
 You may want to change your IP address in the `config.ini` file to connect to the web UI.  
 If you have an error with timezone :  
 `sudo dpkg-reconfigure tzdata`  
-For more help :  
+For more help :
 1. https://github.com/rembo10/headphones/wiki/Installation
 2. https://github.com/rembo10/headphones/wiki/Install-as-a-daemon  
 
 ## Radarr
 Connect to Sonarr :  
 `IP:7878`  
-For more help :  
+For more help :
 1. https://www.htpcguides.com/install-radarr-on-debian-8-jessie/  
 
 ## Sonarr
