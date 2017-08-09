@@ -1,16 +1,52 @@
 #!/bin/sh
 
-##Check if distribution is supported
-if [[ -z "$(uname -a | grep Ubuntu)" && -z "$(uname -a | grep Debian)" ]];
-then
-        echo Distro not supported
-        exit 1
-fi
+compatible(){
+	##Check if distribution is supported
+	if [[ -z "$(uname -a | grep Ubuntu)" && -z "$(uname -a | grep Debian)" ]];then
+		return 1
+	fi
+	##Check if systemd is running
+	if [[ -z "$(pidof systemd)" ]]; then
+		return 2
+	fi
+
+}
+
+main(){
+	if [ compatible == 1 ]; then
+		echo Distro not supported
+		exit 1
+	fi
+	if [ compatible == 2 ]; then
+		echo systemd not running
+		exit 2
+	fi
+	
+	updates
+	if [[ $installApp("PlexMediaServer") == 0 ]]; then
+		plex
+	fi
+	
+}
+
+installApp(){
+	while true;	do
+		clear
+	    read -r -p 'Do you want to install '$app'?(Y/n)' choice
+	    case "$choice" in
+	      n|N) return 1;;
+	      y|Y|"") return 0;;
+	      *) echo 'Response not valid';;
+	    esac
+	done
+}
 
 ##Updates && Upgrades
-sudo apt-get update;
-sudo apt-get upgrade;
-sudo apt-get install curl;
+updates(){
+	sudo apt-get update;
+	sudo apt-get upgrade;
+	##sudo apt-get install curl;
+}
 
 ##Deluge
 sudo apt-get install deluge;
