@@ -179,6 +179,7 @@ headphones(){
 }
 
 main(){
+	##call compatible to check if distro is either Debian or Ubuntu
 	compatible
 	if [ $? == 1 ]; then
 		echo Distro not supported
@@ -189,8 +190,10 @@ main(){
 		exit 2
 	fi
 
+	##call updates to upgrade the system
 	updates
 
+	##dictionnary to associate fonction with string name
 	declare -A arr
 	arr["plex"]=PlexMediaServer
 	arr+=( ["deluge"]=Deluge ["sonarr"]=Sonarr ["radarr"]=Radarr ["Headphones"]=Headphones ["jackett"]=Jackett )
@@ -205,7 +208,7 @@ main(){
 main
 
 BLUE=`tput setaf 4`
-echo "Thanks for using this scipt"
+echo "Thanks for using this script"
 echo "If you have any issues hit me up here :"
 echo "https://github.com/Tvax/seedbox-install/issues"
 echo "${BLUE}https://mstdn.io/@Tvax_x"
