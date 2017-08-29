@@ -33,8 +33,6 @@ updates(){
 }
 
 deluge(){
-	echo dans fonction deluge
-	read
 	sudo apt-get install deluge;
 	sudo apt-get install deluge-web;
 	sudo apt-get install deluged;

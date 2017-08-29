@@ -3,7 +3,7 @@ Easily install [Plex](https://github.com/plexinc/plex-media-player), [Sonarr](ht
 
 ## Install  
 `wget https://raw.githubusercontent.com/Tvax/seedbox-install/master/vpsInitscript.sh;`  
-`chmod 755 vpsInitscript.sh`  
+`chmod 755 vpsInitscript.sh;`  
 `./vpsInitscript.sh;`  
 
 ## Plex
