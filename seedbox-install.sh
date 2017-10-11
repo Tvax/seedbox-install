@@ -4,11 +4,18 @@
 compatible(){
 	##Check if distribution is supported
 	if [[ -z "$(uname -a | grep Ubuntu)" && -z "$(uname -a | grep Debian)" ]];then
-		return 1
+		echo Distro not supported
+		exit 1
 	fi
 	##Check if systemd is running
 	if [[ -z "$(pidof systemd)" ]]; then
-		return 2
+		echo systemd not running
+		exit 2
+	fi
+
+	if [ "$UID" -ne 0 ]; then
+		echo Must be root to run the script
+		exit 3
 	fi
 }
 
@@ -16,12 +23,12 @@ compatible(){
 installApp(){
 	clear
 	while true;	do
-	    read -r -p 'Do you want to install '$1'?(Y/n)' choice
-	    case "$choice" in
-	      n|N) return 1;;
-	      y|Y|"") return 0;;
-	      *) echo 'Response not valid';;
-	    esac
+		read -r -p 'Do you want to install '$1'?(Y/n)' choice
+		case "$choice" in
+			n|N) return 1;;
+			y|Y|"") return 0;;
+			*) echo 'Response not valid';;
+		esac
 	done
 }
 
@@ -29,7 +36,6 @@ installApp(){
 updates(){
 	sudo apt-get update;
 	sudo apt-get upgrade;
-	##sudo apt-get install curl;
 }
 
 deluge(){
@@ -45,8 +51,7 @@ deluge(){
 	Wants=deluged.service
 	[Service]
 	Type=simple
-	User=root
-	Group=root
+	User=plex
 	UMask=027
 	ExecStart=/usr/bin/deluge-web
 	Restart=on-failure
@@ -62,8 +67,7 @@ deluge(){
 	After=network-online.target
 	[Service]
 	Type=simple
-	User=root
-	Group=root
+	User=plex
 	UMask=007
 	ExecStart=/usr/bin/deluged -d
 	Restart=on-failure
@@ -93,9 +97,7 @@ sonarr(){
 	Description=Sonarr Daemon
 
 	[Service]
-	User=root
-	Group=root
-
+	User=plex
 	Type=simple
 	PermissionsStartOnly=true
 	ExecStart=/usr/bin/mono /opt/NzbDrone/NzbDrone.exe -nobrowser
@@ -116,15 +118,14 @@ radarr(){
 	cd /tmp;
 	wget https://github.com/Radarr/Radarr/releases/download/v0.2.0.45/Radarr.develop.0.2.0.45.linux.tar.gz;
 	sudo tar -xf Radarr* -C /opt/;
-	sudo chown -R root:root /opt/Radarr;
+	sudo chown -R plex:plex /opt/Radarr;
 
 	sudo echo "[Unit]
 	Description=Radarr Daemon
 	After=syslog.target network.target
 
 	[Service]
-	User=root
-	Group=root
+	User=plex
 	Type=simple
 	ExecStart=/usr/bin/mono /opt/Radarr/Radarr.exe -nobrowser
 	TimeoutStopSec=20
@@ -142,7 +143,7 @@ jackett(){
 	sudo apt-get install libcurl4-openssl-dev;
 	wget https://github.com/Jackett/Jackett/releases/download/v0.7.1622/Jackett.Binaries.Mono.tar.gz;
 	sudo tar -xf Jackett* -C /opt/;
-	sudo chown -R root:root /opt/Jackett;
+	sudo chown -R plex:plex /opt/Jackett;
 
 	sudo echo "[Unit]
 	Description=Jackett Daemon
@@ -150,7 +151,7 @@ jackett(){
 
 	[Service]
 	WorkingDirectory=/opt/Jackett/
-	User=root
+	User=plex
 	ExecStart=/usr/bin/mono --debug JackettConsole.exe --NoRestart
 	Restart=always
 	RestartSec=2
@@ -176,17 +177,25 @@ headphones(){
 	sudo service headphones start;
 }
 
+createPlexUser(){
+	clear
+	grep -q "plex" /etc/passwd
+	if [ $? != 0 ]; then
+		echo "Using user 'plex'"
+		sleep 2
+		return 0
+	fi
+
+	echo "Creating user 'plex' :"
+	adduser plex
+}
+
 main(){
 	##call compatible to check if distro is either Debian or Ubuntu
 	compatible
-	if [ $? == 1 ]; then
-		echo Distro not supported
-		exit 1
-	fi
-	if [ $? == 2 ]; then
-		echo systemd not running
-		exit 2
-	fi
+
+	##create plex user
+	createPlexUser
 
 	##call updates to upgrade the system
 	updates
@@ -198,7 +207,7 @@ main(){
 	for key in ${!arr[@]}; do
 		installApp ${arr[${key}]}
 		if [ $? == 0 ]; then
-		    ${key}
+			${key}
 		fi
 	done
 }
