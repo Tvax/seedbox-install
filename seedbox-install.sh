@@ -187,7 +187,9 @@ createPlexUser(){
 	fi
 
 	echo "Creating user 'plex' :"
-	adduser plex
+	read -s -p "Enter password : " password
+	pass=$(perl -e 'print crypt($ARGV[0], "password")' $password)
+	useradd -m -p $pass plex
 }
 
 main(){
