@@ -180,7 +180,7 @@ headphones(){
 createPlexUser(){
 	clear
 	grep -q "plex" /etc/passwd
-	if [ $? != 0 ]; then
+	if [ $? == 0 ]; then
 		echo "Using user 'plex'"
 		sleep 2
 		return 0
