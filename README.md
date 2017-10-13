@@ -2,9 +2,7 @@
 Easily install [Plex](https://github.com/plexinc/plex-media-player), [Sonarr](https://github.com/Sonarr/Sonarr), [Radarr](https://github.com/Radarr/Radarr), [Headphones](https://github.com/rembo10/headphones), [Deluge](https://github.com/deluge-torrent/deluge) and [Jackett](https://github.com/Jackett/Jackett) with one script!  
 
 ## Install  
-`wget https://raw.githubusercontent.com/Tvax/seedbox-install/master/seedbox-install.sh;`  
-`chmod 755 seedbox-install.sh;`  
-`./seedbox-install.sh;`  
+`bash <(curl -Ss https://raw.githubusercontent.com/Tvax/seedbox-install/master/seedbox-install.sh)`  
 
 ## Plex
 To install Plex via SSH :  
