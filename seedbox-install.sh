@@ -110,6 +110,8 @@ sonarr(){
 	" > /etc/systemd/system/sonarr.service;
 	systemctl enable sonarr.service;
 	sudo service sonarr start;
+	
+	sudo chown plex:plex /opt/NzbDrone/
 }
 
 radarr(){
