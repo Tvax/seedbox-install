@@ -8,7 +8,7 @@ Easily install [Plex](https://github.com/plexinc/plex-media-player), [Sonarr](ht
 To install Plex via SSH :  
 `ssh USER@IP -L 8888:localhost:32400`  
 Then open your browser on :  
-`localhost:8888`  
+`localhost:8888/web`  
 To mount a network drive that Plex can use :  
 `sudo sshfs -o allow_other,default_permissions USER@IP:/Plex /Plex`  
 
