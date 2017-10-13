@@ -163,6 +163,8 @@ jackett(){
 	" > /etc/systemd/system/jackett.service;
 	sudo systemctl enable jackett;
 	sudo service jackett start;
+	
+	rm Jackett.Binaries.Mono.tar.gz;
 }
 
 headphones(){
