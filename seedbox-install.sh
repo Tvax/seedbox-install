@@ -108,10 +108,12 @@ sonarr(){
 	[Install]
 	WantedBy=multi-user.target
 	" > /etc/systemd/system/sonarr.service;
+	
+	sudo chown -R plex:plex /opt/NzbDrone/
+
 	systemctl enable sonarr.service;
 	sudo service sonarr start;
 	
-	sudo chown plex:plex /opt/NzbDrone/
 }
 
 radarr(){
@@ -137,6 +139,8 @@ radarr(){
 	[Install]
 	WantedBy=multi-user.target
 	" > /etc/systemd/system/radarr.service;
+	sudo chown -R plex:plex /opt/Radarr
+	
 	sudo systemctl enable radarr;
 	sudo service radarr start;
 }
