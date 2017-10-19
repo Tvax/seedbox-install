@@ -108,12 +108,12 @@ sonarr(){
 	[Install]
 	WantedBy=multi-user.target
 	" > /etc/systemd/system/sonarr.service;
-	
+
 	sudo chown -R plex:plex /opt/NzbDrone/
 
 	systemctl enable sonarr.service;
 	sudo service sonarr start;
-	
+
 }
 
 radarr(){
@@ -140,7 +140,7 @@ radarr(){
 	WantedBy=multi-user.target
 	" > /etc/systemd/system/radarr.service;
 	sudo chown -R plex:plex /opt/Radarr
-	
+
 	sudo systemctl enable radarr;
 	sudo service radarr start;
 }
@@ -169,7 +169,7 @@ jackett(){
 	" > /etc/systemd/system/jackett.service;
 	sudo systemctl enable jackett;
 	sudo service jackett start;
-	
+
 	rm Jackett.Binaries.Mono.tar.gz;
 }
 
@@ -185,21 +185,23 @@ headphones(){
 	sudo service headphones start;
 }
 
-createPlexUser(){
+createUser(){
 	clear
-	##if user "plex" already exists quit the fonction
-	grep -q "plex" /etc/passwd
+  read -p "Enter user name : " username
+
+	##if user already exists quit the function
+	grep -q $username /etc/passwd
 	if [ $? == 0 ]; then
-		echo "Using user 'plex'"
+		echo "Using existing user '$username'"
 		sleep 2
 		return 0
 	fi
-	
-	##otherwise ask for a password for the newly created "plex" user
-	echo "Creating user 'plex' :"
+
+	##otherwise ask for a password for the newly created user
+	echo "Creating user '$username'"
 	read -s -p "Enter password : " password
 	pass=$(perl -e 'print crypt($ARGV[0], "password")' $password)
-	useradd -m -p $pass plex
+	useradd -m -p $pass $username
 }
 
 main(){
@@ -207,7 +209,7 @@ main(){
 	compatible
 
 	##create plex user
-	createPlexUser
+	createUser
 
 	##call updates to upgrade the system
 	updates
