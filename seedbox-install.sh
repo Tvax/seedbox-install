@@ -51,7 +51,7 @@ deluge(){
 	Wants=deluged.service
 	[Service]
 	Type=simple
-	User=plex
+	User=${username}
 	UMask=027
 	ExecStart=/usr/bin/deluge-web
 	Restart=on-failure
@@ -67,7 +67,7 @@ deluge(){
 	After=network-online.target
 	[Service]
 	Type=simple
-	User=plex
+	User=${username}
 	UMask=007
 	ExecStart=/usr/bin/deluged -d
 	Restart=on-failure
@@ -97,7 +97,7 @@ sonarr(){
 	Description=Sonarr Daemon
 
 	[Service]
-	User=plex
+	User=${username}
 	Type=simple
 	PermissionsStartOnly=true
 	ExecStart=/usr/bin/mono /opt/NzbDrone/NzbDrone.exe -nobrowser
@@ -129,7 +129,7 @@ radarr(){
 	After=syslog.target network.target
 
 	[Service]
-	User=plex
+	User=${username}
 	Type=simple
 	ExecStart=/usr/bin/mono /opt/Radarr/Radarr.exe -nobrowser
 	TimeoutStopSec=20
@@ -157,7 +157,7 @@ jackett(){
 
 	[Service]
 	WorkingDirectory=/opt/Jackett/
-	User=plex
+	User=${username}
 	ExecStart=/usr/bin/mono --debug JackettConsole.exe --NoRestart
 	Restart=always
 	RestartSec=2
