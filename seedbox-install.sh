@@ -187,21 +187,20 @@ headphones(){
 
 createUser(){
 	clear
-  read -p "Enter user name : " username
+        read -p "Enter user name : " username
 
-	##if user already exists quit the function
-	grep -q $username /etc/passwd
-	if [ $? == 0 ]; then
-		echo "Using existing user '$username'"
-		sleep 2
-		return 0
-	fi
+        ##if user already exists quit the function
+        grep -q $username /etc/passwd
+        if [ $? -eq 0 ]; then
+                echo "Using existing user '$username'"
+                sleep 2
+                return 1
+        fi
 
-	##otherwise ask for a password for the newly created user
-	echo "Creating user '$username'"
-	read -s -p "Enter password : " password
-	pass=$(perl -e 'print crypt($ARGV[0], "password")' $password)
-	useradd -m -p $pass $username
+        ##otherwise ask for a password for the newly created user
+        read -p "Enter password : " password
+        sudo adduser $username --gecos "First Last,RoomNumber,WorkPhone,HomePhone" --disabled-password
+        echo "${username}:${password}" | sudo chpasswd
 }
 
 main(){
