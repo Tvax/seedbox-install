@@ -109,7 +109,7 @@ sonarr(){
 	WantedBy=multi-user.target
 	" > /etc/systemd/system/sonarr.service;
 
-	sudo chown -R plex:plex /opt/NzbDrone/
+	sudo chown -R ${username}:${username} /opt/NzbDrone/
 
 	systemctl enable sonarr.service;
 	sudo service sonarr start;
@@ -122,7 +122,7 @@ radarr(){
 	cd /tmp;
 	wget https://github.com/Radarr/Radarr/releases/download/v0.2.0.45/Radarr.develop.0.2.0.45.linux.tar.gz;
 	sudo tar -xf Radarr* -C /opt/;
-	sudo chown -R plex:plex /opt/Radarr;
+	sudo chown -R ${username}:${username} /opt/Radarr;
 
 	sudo echo "[Unit]
 	Description=Radarr Daemon
@@ -139,7 +139,7 @@ radarr(){
 	[Install]
 	WantedBy=multi-user.target
 	" > /etc/systemd/system/radarr.service;
-	sudo chown -R plex:plex /opt/Radarr
+	sudo chown -R ${username}:${username} /opt/Radarr
 
 	sudo systemctl enable radarr;
 	sudo service radarr start;
@@ -149,7 +149,7 @@ jackett(){
 	sudo apt-get install libcurl4-openssl-dev;
 	wget https://github.com/Jackett/Jackett/releases/download/v0.7.1622/Jackett.Binaries.Mono.tar.gz;
 	sudo tar -xf Jackett* -C /opt/;
-	sudo chown -R plex:plex /opt/Jackett;
+	sudo chown -R ${username}:${username} /opt/Jackett;
 
 	sudo echo "[Unit]
 	Description=Jackett Daemon
@@ -207,7 +207,7 @@ main(){
 	##call compatible to check if distro is either Debian or Ubuntu
 	compatible
 
-	##create plex user
+	##create user
 	createUser
 
 	##call updates to upgrade the system
