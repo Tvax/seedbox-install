@@ -187,13 +187,15 @@ headphones(){
 
 createPlexUser(){
 	clear
+	##if user "plex" already exists quit the fonction
 	grep -q "plex" /etc/passwd
 	if [ $? == 0 ]; then
 		echo "Using user 'plex'"
 		sleep 2
 		return 0
 	fi
-
+	
+	##otherwise ask for a password for the newly created "plex" user
 	echo "Creating user 'plex' :"
 	read -s -p "Enter password : " password
 	pass=$(perl -e 'print crypt($ARGV[0], "password")' $password)
