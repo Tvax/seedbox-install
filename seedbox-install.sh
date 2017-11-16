@@ -231,4 +231,3 @@ BLUE=`tput setaf 4`
 echo "Thanks for using this script"
 echo "If you have any issues hit me up here :"
 echo "https://github.com/Tvax/seedbox-install/issues"
-echo "${BLUE}https://mstdn.io/@Tvax_x"
